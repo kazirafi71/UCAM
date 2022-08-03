@@ -1,0 +1,16 @@
+.mainDiv__style {
+  background-color: var(--background--color);
+  height: 100vh;
+}
+
+.detailsBtn_style {
+  background-color: var(--secondary--color);
+  border: none;
+  padding: 4px 20px;
+  color: white;
+}
+
+.sessionInfo__style {
+  padding-bottom: 0.5rem;
+  color: var(--secondary--color);
+}

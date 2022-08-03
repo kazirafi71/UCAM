@@ -1,0 +1,14 @@
+.titleName__style {
+  width: 180px;
+}
+
+.profileImg__Style {
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.profileMain__style {
+  background-color: #f6f8fc;
+}
