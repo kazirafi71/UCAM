@@ -1,8 +1,8 @@
-import { Paper } from "@mui/material";
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import CommonTitle from "../../CommonComp/CommonTitle/CommonTitle";
 import Styles from "./ProfileComp.module.css";
+import { Paper } from "@mui/material";
 
 const ProfileComp = () => {
   return (
