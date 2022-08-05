@@ -44,9 +44,11 @@ module.exports.createUser__controller = async (req, res, next) => {
         .status(404)
         .json({ error: "Please provide required information's" });
     }
-    const checkUserName = await AdminModel.findOne({
+    const checkUserName = await UserModel.findOne({
       username: username.replaceAll(" ", ""),
     });
+
+    console.log(checkUserName);
 
     if (checkUserName) {
       return res.status(404).json({ error: "Username already exists" });
@@ -54,7 +56,7 @@ module.exports.createUser__controller = async (req, res, next) => {
 
     const hash_pass = bcrypt.hashSync(password, 12);
 
-    const newAdmin = new AdminModel({
+    const newAdmin = new UserModel({
       username,
       password: hash_pass,
       role,
@@ -62,7 +64,7 @@ module.exports.createUser__controller = async (req, res, next) => {
 
     const saveAdmin = await newAdmin.save();
 
-    return res.status(201).json({ success: "Admin Created Successfully" });
+    return res.status(201).json({ success: "User Created Successfully" });
   } catch (error) {
     console.log(error);
     return res.status(400).json({ error: "Something went wrong" });

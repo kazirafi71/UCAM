@@ -21,7 +21,7 @@ const AttendenceSummary = () => {
                   <th>Course Code </th>
                   <th>Course Title</th>
                   <th>Section </th>
-                  <th>Day Two </th>
+
                   <th>Present Count </th>
                   <th>Absent Count </th>
                   <th>Action </th>
@@ -30,36 +30,36 @@ const AttendenceSummary = () => {
               <tbody>
                 <tr>
                   <td>1</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>Otto</td>
+                  <td>ICE4223</td>
+                  <td>Cloud Computing</td>
+                  <td>B</td>
+                  <td>5</td>
+                  <td>2</td>
+
                   <td>
                     <button className={Styles.detailsBtn_style}>Details</button>
                   </td>
                 </tr>
                 <tr>
-                  <td>1</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>Otto</td>
+                  <td>2</td>
+                  <td>ICE4223</td>
+                  <td>Cloud Computing</td>
+                  <td>B</td>
+                  <td>5</td>
+                  <td>2</td>
+
                   <td>
                     <button className={Styles.detailsBtn_style}>Details</button>
                   </td>
                 </tr>
                 <tr>
-                  <td>1</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>Otto</td>
+                  <td>3</td>
+                  <td>ICE4223</td>
+                  <td>Cloud Computing</td>
+                  <td>B</td>
+                  <td>5</td>
+                  <td>2</td>
+
                   <td>
                     <button className={Styles.detailsBtn_style}>Details</button>
                   </td>
@@ -85,18 +85,13 @@ const AttendenceSummary = () => {
               <tbody>
                 <tr>
                   <td>1</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
+                  <td>17/07/2022</td>
+                  <td>Present</td>
                 </tr>
                 <tr>
-                  <td>1</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
+                  <td>2</td>
+                  <td>20/07/2022</td>
+                  <td>Present</td>
                 </tr>
               </tbody>
             </Table>

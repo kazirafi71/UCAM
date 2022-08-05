@@ -4,11 +4,13 @@ import Link from "next/link";
 import Avatar from "@mui/material/Avatar";
 import { useRouter } from "next/router";
 import MobileNavbar from "./MobileNavbar/MobileNavbar";
+import toast, { Toaster } from "react-hot-toast";
 
 const NavbarComp = () => {
   const router = useRouter();
   return (
     <div className={Styles.mainNav__style}>
+      <Toaster />
       <div className={Styles.leftNav__style}>
         <Link href="/">
           <a>
@@ -96,7 +98,17 @@ const NavbarComp = () => {
       <div className={Styles.rightNav__style}>
         <div className="me-2">
           <b>KAZI MUSADDI RAFI</b> <br />
-          <small>19511071</small> /<small>Logout</small>
+          <small>19511071</small> /
+          <small
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              localStorage.removeItem("auth_token");
+              toast.success("You are logged out");
+              router.push("/login");
+            }}
+          >
+            Logout
+          </small>
         </div>
         <Avatar />
       </div>

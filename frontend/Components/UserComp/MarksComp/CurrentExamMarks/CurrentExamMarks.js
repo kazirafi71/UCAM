@@ -28,19 +28,19 @@ const CurrentExamMarks = () => {
               <tbody>
                 <tr>
                   <td>1</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
+                  <td>ICE4205</td>
+                  <td> Software Testing and Maintenance</td>
+                  <td>B</td>
 
                   <td>
                     <button className={Styles.detailsBtn_style}>Details</button>
                   </td>
                 </tr>
                 <tr>
-                  <td>1</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
+                  <td>2</td>
+                  <td>ICE4205</td>
+                  <td> Software Testing and Maintenance</td>
+                  <td>B</td>
 
                   <td>
                     <button className={Styles.detailsBtn_style}>Details</button>
@@ -68,7 +68,7 @@ const CurrentExamMarks = () => {
               <tbody>
                 <tr>
                   <td>1</td>
-                  <td>Test Exam</td>
+                  <td>Class Test Exam-01</td>
                   <td>10</td>
                   <td>10</td>
                 </tr>
