@@ -38,3 +38,22 @@
   text-decoration: none;
   color: var(--secondary--color);
 }
+
+.mobileNav__style {
+  display: none;
+}
+
+@media screen and (max-width: 800px) {
+  .mobileNav__style {
+    display: block;
+  }
+  .middleNav__style {
+    display: none;
+  }
+  .rightNav__style {
+    display: none;
+  }
+  .leftNav__style {
+    flex: 1;
+  }
+}

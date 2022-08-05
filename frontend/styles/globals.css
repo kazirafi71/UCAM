@@ -27,3 +27,11 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.commonBtn__style {
+  border-radius: 4px;
+  border: none;
+  background-color: var(--secondary--color);
+  color: white;
+  padding: 7px 20px;
+}

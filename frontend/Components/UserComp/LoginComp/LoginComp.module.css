@@ -1,0 +1,12 @@
+.mainLogin_Style {
+  background-color: var(--background--color);
+  padding: 50px 0px;
+  height: 100vh;
+}
+
+.forgotPass_style {
+  text-decoration: none;
+  color: gray;
+  padding-bottom: 10px;
+  font-size: 14px;
+}

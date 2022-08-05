@@ -3,6 +3,7 @@ import Styles from "./NavbarComp.module.css";
 import Link from "next/link";
 import Avatar from "@mui/material/Avatar";
 import { useRouter } from "next/router";
+import MobileNavbar from "./MobileNavbar/MobileNavbar";
 
 const NavbarComp = () => {
   const router = useRouter();
@@ -66,12 +67,12 @@ const NavbarComp = () => {
 
         <li
           className={
-            router.pathname == "/marks"
+            router.pathname == "/marks/currentexammarks"
               ? `${Styles.activeNav__style}`
               : `${Styles.normalNav__style}`
           }
         >
-          <Link href="/marks">
+          <Link href="/marks/currentexammarks">
             <a>Marks</a>
           </Link>
         </li>
@@ -88,6 +89,9 @@ const NavbarComp = () => {
             <a>Bill</a>
           </Link>
         </li>
+      </div>
+      <div className={Styles.mobileNav__style}>
+        <MobileNavbar />
       </div>
       <div className={Styles.rightNav__style}>
         <div className="me-2">

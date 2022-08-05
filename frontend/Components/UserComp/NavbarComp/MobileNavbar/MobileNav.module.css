@@ -1,0 +1,15 @@
+.menuitem__style {
+  text-decoration: none;
+  color: black;
+
+  width: 100%;
+  padding: 10px 20px;
+}
+
+.activeMenuitem__style {
+  text-decoration: none;
+  color: white;
+  background-color: var(--secondary--color);
+  width: 100%;
+  padding: 10px 20px;
+}
