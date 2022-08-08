@@ -10,6 +10,10 @@ app.use(express.json());
 
 //routes
 
+app.get("/test", (req, res) => {
+  return res.status(200).json({ text: "test" });
+});
+
 app.use("/api/admin", require("./routes/adminRoutes"));
 app.use("/api", require("./routes/authRoutes"));
 
