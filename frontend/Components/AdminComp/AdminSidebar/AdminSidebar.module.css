@@ -1,0 +1,13 @@
+.activeSideMenu_style {
+  background-color: var(--secondary--color);
+  cursor: pointer;
+  color: white;
+  padding: 10px 20px;
+  transition: all 0.3s ease-in-out;
+}
+
+.normalSideMenu_style {
+  background-color: white;
+  cursor: pointer;
+  padding: 10px 20px;
+}

@@ -1,0 +1,18 @@
+.mainNav__style {
+  background-color: white;
+  box-shadow: 0 0 10px rgba(151, 139, 139, 0.534);
+  padding: 15px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.leftNav__style {
+  display: flex;
+  align-items: center;
+}
+
+.menuIcon__style {
+  font-size: 24px;
+  cursor: pointer;
+}

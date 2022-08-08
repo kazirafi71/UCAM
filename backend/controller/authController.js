@@ -15,6 +15,7 @@ module.exports.login__controller = async (req, res, next) => {
     const checkUser = await UserModel.findOne({
       username: username.toLowerCase().replaceAll(" ", ""),
     });
+    
 
     if (!checkUser) {
       return res.status(404).json({ error: "Invalid credentials" });
@@ -24,9 +25,13 @@ module.exports.login__controller = async (req, res, next) => {
       return res.status(404).json({ error: "Invalid credentials" });
     }
 
-    var token = jwt.sign({ _id: checkUser.username }, process.env.SECRET_KEY, {
-      expiresIn: "1h",
-    });
+    var token = jwt.sign(
+      { _id: checkUser._id, username: checkUser.username },
+      process.env.SECRET_KEY,
+      {
+        expiresIn: "1h",
+      }
+    );
     return res.status(201).json({ success: "Login successful", token });
   } catch (error) {
     return res.status(404).json({ error: "Something went wrong" });
