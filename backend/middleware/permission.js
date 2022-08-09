@@ -21,5 +21,4 @@ module.exports.checkAdmin = async (req, res, next) => {
       error: "You are not authorized",
     });
   }
-  // console.log(verify_token);
 };
