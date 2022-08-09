@@ -15,7 +15,6 @@ module.exports.login__controller = async (req, res, next) => {
     const checkUser = await UserModel.findOne({
       username: username.toLowerCase().replaceAll(" ", ""),
     });
-    
 
     if (!checkUser) {
       return res.status(404).json({ error: "Invalid credentials" });
@@ -35,5 +34,15 @@ module.exports.login__controller = async (req, res, next) => {
     return res.status(201).json({ success: "Login successful", token });
   } catch (error) {
     return res.status(404).json({ error: "Something went wrong" });
+  }
+};
+
+module.exports.verifyToken__controller = async (req, res, next) => {
+  try {
+    const { token } = req.body;
+    var decoded = await jwt.verify(token, process.env.SECRET_KEY);
+    return res.status(201).json({ success: "Token is valid now" });
+  } catch (error) {
+    return res.status(404).json({ error: "Invalid token" });
   }
 };

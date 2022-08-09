@@ -5,6 +5,7 @@ import AdminSidebar from "../AdminSidebar/AdminSidebar";
 import { useSelector } from "react-redux";
 import { getAdminToken } from "../../../utils/localStorageData";
 import { useRouter } from "next/router";
+import { checkTokenAction } from "../../../redux/token/tokenAction";
 
 const AdminLayout = ({ children }) => {
   const sidebarShow = useSelector((state) => state.sidebar);

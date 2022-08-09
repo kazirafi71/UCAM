@@ -12,7 +12,7 @@ const adminRoutes = [
   {
     title: "Admin",
     url: "/admin/admins/viewadmins",
-    url2: "/admin/users/addadmin",
+    url2: "/admin/admins/addadmin",
   },
   {
     title: "User",

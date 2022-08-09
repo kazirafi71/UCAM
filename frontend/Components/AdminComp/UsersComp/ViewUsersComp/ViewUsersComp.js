@@ -7,16 +7,21 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import { Container } from "react-bootstrap";
+import { Alert, Container } from "react-bootstrap";
 import AdminTitleComp from "../../../CommonComp/AdminTitleComp/AdminTitleComp";
 import { BiEditAlt } from "react-icons/bi";
 import { MdDeleteOutline } from "react-icons/md";
+import Axios from "axios";
+import baseUrl from "../../../../config/baseUrl";
+import { getAdminToken } from "../../../../utils/localStorageData";
 
 const columns = ["Serial Number", "Username", "Role", "Action"];
 
-const ViewUsersComp = ({ data }) => {
+const ViewUsersComp = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [data, setData] = React.useState([]);
+  const [errorMsg, setErrorMsg] = React.useState("");
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -26,6 +31,34 @@ const ViewUsersComp = ({ data }) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+  const getUserList = async () => {
+    const admin_token = getAdminToken();
+    try {
+      const result = await Axios.get(`${baseUrl}/api/admin/list-users`, {
+        headers: {
+          Authorization: "Bearer " + admin_token,
+        },
+      });
+      setData(result.data);
+    } catch (error) {
+      setErrorMsg(error.response.data.error);
+    }
+  };
+
+  React.useEffect(() => {
+    getUserList();
+  }, []);
+
+  if (errorMsg) {
+    return (
+      <div className="py-4">
+        <Alert variant="danger" className="text-center">
+          {errorMsg}
+        </Alert>
+      </div>
+    );
+  }
   return (
     <div>
       <Container>

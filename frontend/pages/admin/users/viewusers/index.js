@@ -3,22 +3,14 @@ import AdminLayout from "../../../../Components/AdminComp/AdminLayout/AdminLayou
 import ViewUsersComp from "../../../../Components/AdminComp/UsersComp/ViewUsersComp/ViewUsersComp";
 import Axios from "axios";
 import baseUrl from "../../../../config/baseUrl";
+import { getAdminToken } from "../../../../utils/localStorageData";
 
-const ViewUsers = ({ data }) => {
+const ViewUsers = () => {
   return (
     <AdminLayout>
-      <ViewUsersComp data={data} />
+      <ViewUsersComp />
     </AdminLayout>
   );
 };
-
-export async function getServerSideProps(context) {
-  const result = await Axios.get(`${baseUrl}/api/admin/list-users`);
-  const data = result?.data;
-
-  return {
-    props: { data }, // will be passed to the page component as props
-  };
-}
 
 export default ViewUsers;

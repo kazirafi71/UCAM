@@ -119,3 +119,12 @@ module.exports.listUsers__controller = async (req, res, next) => {
     return res.status(404).json({ error: "Something went wrong" });
   }
 };
+
+module.exports.listAdmins__controller = async (req, res, next) => {
+  try {
+    const admins = await AdminModel.find();
+    return res.status(201).json(admins);
+  } catch (error) {
+    return res.status(404).json({ error: "Something went wrong" });
+  }
+};

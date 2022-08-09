@@ -1,8 +1,13 @@
 import React from "react";
-import AdminLayout from '../../../../Components/AdminComp/AdminLayout/AdminLayout';
+import AdminLayout from "../../../../Components/AdminComp/AdminLayout/AdminLayout";
+import ViewAdminListComp from "../../../../Components/AdminComp/AdminsComp/ViewAdminListComp/ViewAdminListComp";
 
 const ViewAdmins = () => {
-  return <AdminLayout></AdminLayout>;
+  return (
+    <AdminLayout>
+      <ViewAdminListComp />
+    </AdminLayout>
+  );
 };
 
 export default ViewAdmins;

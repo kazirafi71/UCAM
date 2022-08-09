@@ -12,41 +12,36 @@ import baseUrl from "../../../../config/baseUrl";
 import { getAdminToken } from "../../../../utils/localStorageData";
 
 const initialValues = {
-  username: "",
+  email: "",
   password: "",
-  role: "",
 };
 
-const AddUserComp = () => {
+const AddAdminComp = () => {
   const router = useRouter();
   const validate = (values) => {
-    const { username, password, role } = values;
+    const { email, password } = values;
     let errors = {};
-    if (!username) {
-      errors.username = "Please provide your username";
+    if (!email) {
+      errors.email = "Please provide your email";
     }
     if (!password) {
       errors.password = "Please provide your password";
-    }
-    if (!role) {
-      errors.role = "Please select role";
     }
 
     return errors;
   };
   const onSubmit = async (values) => {
     const admin_token = getAdminToken();
-    const { username, password, role } = values;
+    const { email, password } = values;
 
     let data = {
-      username,
+      email,
       password,
-      role,
     };
 
     try {
       const result = await Axios.post(
-        `${baseUrl}/api/admin/create-user`,
+        `${baseUrl}/api/admin/create-admin`,
         data,
         {
           headers: {
@@ -56,8 +51,9 @@ const AddUserComp = () => {
       );
 
       toast.success(result.data.success);
-      router.push("/admin/users/viewusers");
+      router.push("/admin/admins/viewadmins");
     } catch (error) {
+      
       toast.error(error.response.data.error);
     }
   };
@@ -70,21 +66,21 @@ const AddUserComp = () => {
   return (
     <Container>
       <Toaster />
-      <AdminTitleComp title="Add User" />
+      <AdminTitleComp title="Add Admin" />
       <Paper className="p-3 py-4 mt-4">
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Username*</Form.Label>
+            <Form.Label>Email*</Form.Label>
             <Form.Control
-              type="text"
-              placeholder="Username"
-              name="username"
-              {...formik.getFieldProps("username")}
+              type="email"
+              placeholder="Email"
+              name="email"
+              {...formik.getFieldProps("email")}
             />
             <small style={{ color: "red" }}>
-              {formik.touched.username &&
-                formik.errors.username &&
-                formik.errors.username}
+              {formik.touched.email &&
+                formik.errors.email &&
+                formik.errors.email}
             </small>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -101,20 +97,9 @@ const AddUserComp = () => {
                 formik.errors.password}
             </small>
           </Form.Group>
-          <Form.Group className="mb-1" controlId="formBasicPassword">
-            <Form.Label>Role*</Form.Label>
-            <Form.Select name="role" {...formik.getFieldProps("role")}>
-              <option value="">Select role</option>
-              <option value="Student">Student</option>
-              <option value="Teacher">Teacher</option>
-            </Form.Select>
-            <small style={{ color: "red" }}>
-              {formik.touched.role && formik.errors.role && formik.errors.role}
-            </small>
-          </Form.Group>
 
           <button className="commonBtn__style mt-3" type="submit">
-            Add User
+            Add Admin
           </button>
         </Form>
       </Paper>{" "}
@@ -122,4 +107,4 @@ const AddUserComp = () => {
   );
 };
 
-export default AddUserComp;
+export default AddAdminComp;
