@@ -12,14 +12,20 @@ const adminRoutes = [
   {
     title: "Admin",
     url: "/admin/admins/viewadmins",
+    url2: "/admin/users/addadmin",
   },
   {
     title: "User",
     url: "/admin/users/viewusers",
+    url2: "/admin/users/adduser",
   },
   {
     title: "Settings",
     url: "/admin/settings",
+  },
+  {
+    title: "Logout",
+    url: "/admin/adminlogin",
   },
 ];
 
@@ -35,12 +41,16 @@ const AdminSidebar = () => {
               return (
                 <ListItem
                   className={
-                    router.pathname === item.url
+                    router.pathname === item.url ||
+                    router.pathname === item.url2
                       ? `${Styles.activeSideMenu_style}`
                       : `${Styles.normalSideMenu_style}`
                   }
                   key={index}
                   onClick={() => {
+                    if (item.title === "Logout") {
+                      localStorage.removeItem("admin_token");
+                    }
                     router.push(`${item.url}`);
                   }}
                 >

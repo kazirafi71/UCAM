@@ -35,3 +35,16 @@ a {
   color: white;
   padding: 7px 20px;
 }
+
+.commonEditIcon {
+  color: var(--secondary--color);
+  cursor: pointer;
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+.commonDeleteIcon {
+  color: red;
+  cursor: pointer;
+  font-size: 24px;
+}

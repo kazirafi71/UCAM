@@ -9,7 +9,7 @@ import Axios from "axios";
 import baseUrl from "../../../config/baseUrl";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/router";
-import getLocalStorageData from "../../../../backend/utils/localStorageData";
+import getLocalStorageData from "../../../utils/localStorageData";
 
 const initialValues = {
   username: "",

@@ -1,10 +1,7 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-import getLocalStorageData from "../../../../backend/utils/localStorageData";
 
 const HomeComp = () => {
-  const auth_token = getLocalStorageData();
-  console.log("auth_token", auth_token);
   return (
     <div>
       <Container>

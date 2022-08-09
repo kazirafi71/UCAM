@@ -1,0 +1,10 @@
+.adminTitle__style {
+  background-color: white;
+  padding: 10px;
+  box-shadow: 0px 0px 12px 1px rgba(126, 119, 119, 0.171);
+  margin: 10px 0px;
+  color: var(--secondary--color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

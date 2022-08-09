@@ -11,7 +11,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/router";
 import getLocalStorageData, {
   getAdminToken,
-} from "../../../../backend/utils/localStorageData";
+} from "../../../utils/localStorageData";
 
 const initialValues = {
   email: "",
