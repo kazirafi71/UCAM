@@ -11,11 +11,6 @@ const userSchema = mongoose.Schema({
     required: true,
   },
 
-  profile_img: {
-    type: String,
-    default: "",
-  },
-
   role: { type: String, required: true, enum: ["Student", "Teacher"] },
 
   createdAt: {
