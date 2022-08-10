@@ -14,13 +14,14 @@ import { MdDeleteOutline } from "react-icons/md";
 import Axios from "axios";
 import baseUrl from "../../../../config/baseUrl";
 import { getAdminToken } from "../../../../utils/localStorageData";
+import LoadingComp from "../../../CommonComp/LoadingComp/LoadingComp";
 
 const columns = ["Serial Number", "Email", "Role", "Action"];
 
 const ViewAdminListComp = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [data, setData] = React.useState([]);
+  const [data, setData] = React.useState("");
   const [errorMsg, setErrorMsg] = React.useState("");
 
   const handleChangePage = (event, newPage) => {
@@ -50,6 +51,10 @@ const ViewAdminListComp = () => {
     getUserList();
   }, []);
 
+  if (!data) {
+    return <LoadingComp />;
+  }
+
   if (errorMsg) {
     return (
       <div className="py-4">
@@ -59,6 +64,7 @@ const ViewAdminListComp = () => {
       </div>
     );
   }
+
   return (
     <div>
       <div>

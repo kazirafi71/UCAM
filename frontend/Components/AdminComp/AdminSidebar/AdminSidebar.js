@@ -20,6 +20,11 @@ const adminRoutes = [
     url2: "/admin/users/adduser",
   },
   {
+    title: "Student Info",
+    url: "/admin/studentinfos",
+    // url2: "/admin/users/adduser",
+  },
+  {
     title: "Settings",
     url: "/admin/settings",
   },

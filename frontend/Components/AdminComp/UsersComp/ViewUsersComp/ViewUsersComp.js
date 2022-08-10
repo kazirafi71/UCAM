@@ -14,13 +14,14 @@ import { MdDeleteOutline } from "react-icons/md";
 import Axios from "axios";
 import baseUrl from "../../../../config/baseUrl";
 import { getAdminToken } from "../../../../utils/localStorageData";
+import LoadingComp from "../../../CommonComp/LoadingComp/LoadingComp";
 
-const columns = ["Serial Number", "Username", "Role", "Action"];
+const columns = ["Serial Number", "Username", "Role", "Profile", "Action"];
 
 const ViewUsersComp = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [data, setData] = React.useState([]);
+  const [data, setData] = React.useState("");
   const [errorMsg, setErrorMsg] = React.useState("");
 
   const handleChangePage = (event, newPage) => {
@@ -42,13 +43,17 @@ const ViewUsersComp = () => {
       });
       setData(result.data);
     } catch (error) {
-      setErrorMsg(error.response.data.error);
+      setErrorMsg(error.response?.data?.error);
     }
   };
 
   React.useEffect(() => {
     getUserList();
   }, []);
+
+  if (!data) {
+    return <LoadingComp />;
+  }
 
   if (errorMsg) {
     return (
@@ -75,7 +80,9 @@ const ViewUsersComp = () => {
               <TableHead>
                 <TableRow>
                   {columns.map((column, index) => (
-                    <TableCell key={index}>{column}</TableCell>
+                    <TableCell className="text-center" key={index}>
+                      {column}
+                    </TableCell>
                   ))}
                 </TableRow>
               </TableHead>
@@ -91,10 +98,25 @@ const ViewUsersComp = () => {
                           tabIndex={-1}
                           key={index}
                         >
-                          <TableCell>{index + 1}</TableCell>
-                          <TableCell>{row.username}</TableCell>
+                          <TableCell className="text-center">
+                            {index + 1}
+                          </TableCell>
+                          <TableCell className="text-center">
+                            {row.username}
+                          </TableCell>
                           <TableCell>{row.role}</TableCell>
-                          <TableCell>
+                          <TableCell className="text-center">
+                            {row.profile_status ? (
+                              <button className="commonBtn__style">
+                                Update Profile
+                              </button>
+                            ) : (
+                              <button className="commonBtnTwo__style">
+                                Create Profile
+                              </button>
+                            )}
+                          </TableCell>
+                          <TableCell className="text-center">
                             <BiEditAlt className="commonEditIcon" />
                             <MdDeleteOutline className="commonDeleteIcon" />
                           </TableCell>
