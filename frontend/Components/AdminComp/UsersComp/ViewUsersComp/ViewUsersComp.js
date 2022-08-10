@@ -31,6 +31,7 @@ const ViewUsersComp = () => {
   const [modalShow, setModalShow] = React.useState(false);
   const modalText = useSelector((state) => state.deleteModal);
   const dispatch = useDispatch();
+  const [deleteItem, setDeleteItem] = React.useState("");
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -141,13 +142,16 @@ const ViewUsersComp = () => {
                           <TableCell className="text-center">
                             <BiEditAlt className="commonEditIcon" />
                             <MdDeleteOutline
-                              onClick={() => setModalShow(true)}
+                              onClick={() => {
+                                setDeleteItem(row._id);
+                                setModalShow(true);
+                              }}
                               className="commonDeleteIcon"
                             />
                             <DeleteModal
                               show={modalShow}
                               onHide={() => setModalShow(false)}
-                              userId={row._id}
+                              userId={deleteItem}
                               title="user"
                             />
                           </TableCell>
