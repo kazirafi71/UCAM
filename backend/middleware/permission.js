@@ -6,7 +6,7 @@ module.exports.checkAdmin = async (req, res, next) => {
 
   if (!authorization) {
     return res.status(400).json({
-      error: "You are not authorized",
+      error: "You are not authorized.Please login",
     });
   }
   let token = authorization.split(" ")[1];
@@ -18,7 +18,7 @@ module.exports.checkAdmin = async (req, res, next) => {
     next();
   } catch (error) {
     return res.status(400).json({
-      error: "You are not authorized",
+      error: "You are not authorized.Please login",
     });
   }
 };

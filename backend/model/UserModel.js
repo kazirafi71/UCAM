@@ -10,6 +10,11 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  profile_status: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
 
   role: { type: String, required: true, enum: ["Student", "Teacher"] },
 

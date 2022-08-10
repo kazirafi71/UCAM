@@ -5,7 +5,9 @@ const {
   listUsers__controller,
   listAdmins__controller,
   createStudentProfile__controller,
+  listStudentProfile__controller,
 } = require("../controller/adminController");
+
 const { checkAdmin } = require("../middleware/permission");
 const upload = require("../middleware/multer");
 
@@ -26,6 +28,12 @@ router.post(
   checkAdmin,
   upload.single("student_img"),
   createStudentProfile__controller
+);
+
+router.get(
+  "/list-student-profiles",
+  checkAdmin,
+  listStudentProfile__controller
 );
 
 module.exports = router;

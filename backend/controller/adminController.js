@@ -51,8 +51,6 @@ module.exports.createUser__controller = async (req, res, next) => {
       username: username.replaceAll(" ", ""),
     });
 
-    console.log(checkUserName);
-
     if (checkUserName) {
       return res.status(404).json({ error: "Username already exists" });
     }
@@ -116,6 +114,7 @@ module.exports.adminLogin__controller = async (req, res, next) => {
 module.exports.listUsers__controller = async (req, res, next) => {
   try {
     const users = await UserModel.find();
+
     return res.status(201).json(users);
   } catch (error) {
     return res.status(404).json({ error: "Something went wrong" });
@@ -126,6 +125,18 @@ module.exports.listAdmins__controller = async (req, res, next) => {
   try {
     const admins = await AdminModel.find();
     return res.status(201).json(admins);
+  } catch (error) {
+    return res.status(404).json({ error: "Something went wrong" });
+  }
+};
+
+module.exports.listStudentProfile__controller = async (req, res, next) => {
+  try {
+    const student_profile = await StudentProfileModel.find().populate(
+      "user",
+      "username"
+    );
+    return res.status(201).json(student_profile);
   } catch (error) {
     return res.status(404).json({ error: "Something went wrong" });
   }
@@ -153,7 +164,6 @@ module.exports.createStudentProfile__controller = async (req, res, next) => {
       present_address,
       parament_address,
       second_guardian_address,
-
       roll_number,
       session,
     } = req.body;
@@ -182,7 +192,6 @@ module.exports.createStudentProfile__controller = async (req, res, next) => {
       folder: "ucam/student_img",
       quality: 40,
     });
-    console.log(img_path);
 
     const newProfile = new StudentProfileModel({
       gender,
@@ -209,7 +218,14 @@ module.exports.createStudentProfile__controller = async (req, res, next) => {
       image_id: img_path.public_id,
       user: studentId,
     });
-    await newProfile.save();
+    const saveProfile = await newProfile.save();
+
+    const update_profileStatus = await UserModel.findOneAndUpdate(
+      { _id: studentId },
+      { $set: { profile_status: true } },
+      { new: true }
+    );
+
     return res
       .status(201)
       .json({ success: "Student profile created successfully" });
