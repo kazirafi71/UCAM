@@ -51,10 +51,6 @@ const ViewAdminListComp = () => {
     getUserList();
   }, []);
 
-  if (!data) {
-    return <LoadingComp />;
-  }
-
   if (errorMsg) {
     return (
       <div className="py-4">
@@ -63,6 +59,9 @@ const ViewAdminListComp = () => {
         </Alert>
       </div>
     );
+  }
+  if (!data) {
+    return <LoadingComp />;
   }
 
   return (

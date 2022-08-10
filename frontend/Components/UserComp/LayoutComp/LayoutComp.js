@@ -15,9 +15,10 @@ const LayoutComp = ({ children }) => {
     dispatch(checkTokenAction(user_token));
     if (!user_token) {
       router.push("/login");
-    } else if (!checkToken?.is_valid_token) {
-      router.push("/login");
     }
+    // else if (!checkToken?.is_valid_token) {
+    //   router.push("/login");
+    // }
   }, [checkToken, user_token]);
 
   return (

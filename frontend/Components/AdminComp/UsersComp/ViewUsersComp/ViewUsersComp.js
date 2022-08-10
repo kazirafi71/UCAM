@@ -15,10 +15,12 @@ import Axios from "axios";
 import baseUrl from "../../../../config/baseUrl";
 import { getAdminToken } from "../../../../utils/localStorageData";
 import LoadingComp from "../../../CommonComp/LoadingComp/LoadingComp";
+import { useRouter } from "next/router";
 
 const columns = ["Serial Number", "Username", "Role", "Profile", "Action"];
 
 const ViewUsersComp = () => {
+  const router = useRouter();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [data, setData] = React.useState("");
@@ -51,10 +53,6 @@ const ViewUsersComp = () => {
     getUserList();
   }, []);
 
-  if (!data) {
-    return <LoadingComp />;
-  }
-
   if (errorMsg) {
     return (
       <div className="py-4">
@@ -64,6 +62,11 @@ const ViewUsersComp = () => {
       </div>
     );
   }
+
+  if (!data) {
+    return <LoadingComp />;
+  }
+
   return (
     <div>
       <Container>
@@ -111,7 +114,16 @@ const ViewUsersComp = () => {
                                 Update Profile
                               </button>
                             ) : (
-                              <button className="commonBtnTwo__style">
+                              <button
+                                onClick={() => {
+                                  if (row.role === "Student") {
+                                    router.push(
+                                      `/admin/users/viewusers/createstudentprofile/${row._id}`
+                                    );
+                                  }
+                                }}
+                                className="commonBtnTwo__style"
+                              >
                                 Create Profile
                               </button>
                             )}
