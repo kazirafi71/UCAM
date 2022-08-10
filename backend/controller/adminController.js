@@ -239,3 +239,22 @@ module.exports.createStudentProfile__controller = async (req, res, next) => {
     return res.status(404).json({ error: "Something went wrong" });
   }
 };
+
+module.exports.deleteUser__controller = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+
+    const userInfo = await UserModel.findById(userId);
+
+    const deleteUser = await UserModel.findByIdAndDelete(userId);
+    if (userInfo?.role === "Student") {
+      const deleteUserProfile = await StudentProfileModel.findOneAndDelete({
+        user: userId,
+      });
+    }
+
+    return res.status(201).json({ success: "User deleted successfully" });
+  } catch (error) {
+    return res.status(404).json({ error: "Something went wrong" });
+  }
+};

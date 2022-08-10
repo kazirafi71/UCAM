@@ -16,6 +16,9 @@ import baseUrl from "../../../../config/baseUrl";
 import { getAdminToken } from "../../../../utils/localStorageData";
 import LoadingComp from "../../../CommonComp/LoadingComp/LoadingComp";
 import { useRouter } from "next/router";
+import DeleteModal from "../../../CommonComp/DeleteModal/DeleteModal";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteModalSlice } from "../../../../redux/deleteModal/deleteModalSlice";
 
 const columns = ["Serial Number", "Username", "Role", "Profile", "Action"];
 
@@ -25,6 +28,9 @@ const ViewUsersComp = () => {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [data, setData] = React.useState("");
   const [errorMsg, setErrorMsg] = React.useState("");
+  const [modalShow, setModalShow] = React.useState(false);
+  const modalText = useSelector((state) => state.deleteModal);
+  const dispatch = useDispatch();
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -51,7 +57,11 @@ const ViewUsersComp = () => {
 
   React.useEffect(() => {
     getUserList();
-  }, []);
+    if (modalText) {
+      dispatch(deleteModalSlice.actions.deleteSuccessReducer(""));
+      getUserList();
+    }
+  }, [modalText]);
 
   if (errorMsg) {
     return (
@@ -130,7 +140,16 @@ const ViewUsersComp = () => {
                           </TableCell>
                           <TableCell className="text-center">
                             <BiEditAlt className="commonEditIcon" />
-                            <MdDeleteOutline className="commonDeleteIcon" />
+                            <MdDeleteOutline
+                              onClick={() => setModalShow(true)}
+                              className="commonDeleteIcon"
+                            />
+                            <DeleteModal
+                              show={modalShow}
+                              onHide={() => setModalShow(false)}
+                              userId={row._id}
+                              title="user"
+                            />
                           </TableCell>
                         </TableRow>
                       );

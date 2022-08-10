@@ -7,6 +7,8 @@ import { getAdminToken } from "../../../utils/localStorageData";
 import { useRouter } from "next/router";
 import { checkTokenAction } from "../../../redux/token/tokenAction";
 
+import toast, { Toaster } from "react-hot-toast";
+
 const AdminLayout = ({ children }) => {
   const sidebarShow = useSelector((state) => state.sidebar);
   const router = useRouter();
@@ -18,6 +20,7 @@ const AdminLayout = ({ children }) => {
   }, []);
   return (
     <div>
+      <Toaster />
       <AdminNav />
       <Container fluid>
         <Row>

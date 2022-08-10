@@ -6,6 +6,7 @@ const {
   listAdmins__controller,
   createStudentProfile__controller,
   listStudentProfile__controller,
+  deleteUser__controller,
 } = require("../controller/adminController");
 
 const { checkAdmin } = require("../middleware/permission");
@@ -35,5 +36,7 @@ router.get(
   checkAdmin,
   listStudentProfile__controller
 );
+
+router.delete("/delete-user/:userId", checkAdmin, deleteUser__controller);
 
 module.exports = router;
