@@ -166,12 +166,12 @@ module.exports.createStudentProfile__controller = async (req, res, next) => {
       second_guardian_address,
       roll_number,
       session,
+      section,
     } = req.body;
 
     if (
       !fullName ||
       !gender ||
-      !blood_group ||
       !contact_no ||
       !nationality ||
       !father_name ||
@@ -181,17 +181,21 @@ module.exports.createStudentProfile__controller = async (req, res, next) => {
       !religion ||
       !parament_address ||
       !roll_number ||
-      !session
+      !session ||
+      !section
     ) {
       return res
         .status(404)
         .json({ error: "Please provide required information" });
     }
 
-    const img_path = await cloudinary.uploader.upload(req.file.path, {
-      folder: "ucam/student_img",
-      quality: 40,
-    });
+    let img_path;
+    if (req.file) {
+      img_path = await cloudinary.uploader.upload(req.file.path, {
+        folder: "ucam/student_img",
+        quality: 40,
+      });
+    }
 
     const newProfile = new StudentProfileModel({
       gender,
@@ -214,8 +218,9 @@ module.exports.createStudentProfile__controller = async (req, res, next) => {
       second_guardian_address,
       roll_number,
       session,
-      profile_img: img_path.secure_url,
-      image_id: img_path.public_id,
+      section,
+      profile_img: img_path?.secure_url || "",
+      image_id: img_path?.public_id || "",
       user: studentId,
     });
     const saveProfile = await newProfile.save();
