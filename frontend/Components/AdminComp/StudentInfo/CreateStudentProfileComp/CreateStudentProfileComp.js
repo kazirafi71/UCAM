@@ -176,7 +176,7 @@ const CreateStudentProfileComp = () => {
     } catch (error) {
       setLoading(false);
       toast.error(error.response.data.error);
-      // console.log(error);
+      console.log(error);
     }
   };
   const formik = useFormik({
