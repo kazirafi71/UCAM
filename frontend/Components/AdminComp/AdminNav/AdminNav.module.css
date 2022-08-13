@@ -16,3 +16,16 @@
   font-size: 24px;
   cursor: pointer;
 }
+
+.mobileMenu__style {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .deskTopMenu__style {
+    display: none;
+  }
+  .mobileMenu__style {
+    display: block;
+  }
+}

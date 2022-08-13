@@ -11,11 +11,9 @@
   cursor: pointer;
   padding: 10px 20px;
 }
-
-.sidebarMain__style {
-  height: 100%;
-  padding: 10px 0px;
-  margin-top: 10px;
+.menuIcon__style {
+  font-size: 24px;
+  cursor: pointer;
 }
 
 .profileImg__style {

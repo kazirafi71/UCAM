@@ -3,48 +3,24 @@ import React, { useState } from "react";
 import { Container } from "react-bootstrap";
 import { useRouter } from "next/router";
 import Styles from "./AdminSidebar.module.css";
-
-const adminRoutes = [
-  {
-    title: "Dashboard",
-    url: "/admin/dashboard",
-  },
-  {
-    title: "Admin",
-    url: "/admin/admins/viewadmins",
-    url2: "/admin/admins/addadmin",
-  },
-  {
-    title: "Users",
-    url: "/admin/users/viewusers",
-    url2: "/admin/users/adduser",
-  },
-  {
-    title: "Student Info",
-    url: "/admin/studentinfos",
-    // url2: "/admin/users/adduser",
-  },
-  {
-    title: "Teacher Info",
-    url: "/admin/teacherinfos",
-    // url2: "/admin/users/adduser",
-  },
-  {
-    title: "Settings",
-    url: "/admin/settings",
-  },
-  {
-    title: "Logout",
-    url: "/admin/adminlogin",
-  },
-];
+import { adminRoutes } from "./AdminRoutes";
+import profileImg from "../../../assets/Images/commonImg/alex-suprun-ZHvM3XIOHoE-unsplash.jpg"
 
 const AdminSidebar = () => {
   const router = useRouter();
 
   return (
     <div>
-      <Paper>
+      <Paper className={Styles.sidebarMain__style}>
+        <div className="text-center pt-3">
+          <img
+            className={Styles.profileImg__style}
+            src={profileImg.src}
+            alt=""
+          />
+          <h5 className="pt-2">Kazi Musaddi Rafi</h5>
+          <p>kazirafi@gmail.com</p>
+        </div>
         <List>
           {adminRoutes &&
             adminRoutes?.map((item, index) => {

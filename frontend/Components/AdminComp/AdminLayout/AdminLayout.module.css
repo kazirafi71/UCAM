@@ -1,0 +1,12 @@
+.mobileLayout_style {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .desktopLayout_style {
+    display: none !important;
+  }
+  .mobileLayout_style {
+    display: block;
+  }
+}
