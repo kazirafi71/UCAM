@@ -63,7 +63,7 @@ router.delete("/delete-user/:userId", checkAdmin, deleteUser__controller);
 
 router.post("/create-course", checkAdmin, createCourse__controller);
 
-router.post("/list-courses", checkAdmin, listCourses__controller);
+router.get("/list-courses", checkAdmin, listCourses__controller);
 
 router.get("/course-details/:courseId", checkAdmin, courseDetails__controller);
 

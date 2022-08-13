@@ -398,7 +398,7 @@ module.exports.createCourse__controller = async (req, res, next) => {
       createdAt: req.admin,
     });
     await newCourse.save();
-    return res.status(201).json({ error: "New course added successfully" });
+    return res.status(201).json({ success: "New course added successfully" });
   } catch (error) {
     return res.status(404).json({ error: "Something went wrong" });
   }
@@ -406,7 +406,10 @@ module.exports.createCourse__controller = async (req, res, next) => {
 
 module.exports.listCourses__controller = async (req, res, next) => {
   try {
-    const courses = await CourseModel.find();
+    const courses = await CourseModel.find()
+      .populate("course_students", "_id username")
+      .populate("course_teachers", "_id username");
+
     return res.status(200).json(courses);
   } catch (error) {
     return res.status(404).json({ error: "Something went wrong" });

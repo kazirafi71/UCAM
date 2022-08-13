@@ -24,6 +24,11 @@ export const adminRoutes = [
     // url2: "/admin/users/adduser",
   },
   {
+    title: "Courses",
+    url: "/admin/course",
+    url2: "/admin/course/createcourse",
+  },
+  {
     title: "Settings",
     url: "/admin/settings",
   },
