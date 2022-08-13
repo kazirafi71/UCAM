@@ -15,23 +15,32 @@ import Axios from "axios";
 import baseUrl from "../../../../config/baseUrl";
 import { getAdminToken } from "../../../../utils/localStorageData";
 import LoadingComp from "../../../CommonComp/LoadingComp/LoadingComp";
-import { useRouter } from "next/router";
-import DeleteModal from "../../../CommonComp/DeleteModal/DeleteModal";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteModalSlice } from "../../../../redux/deleteModal/deleteModalSlice";
+import Image from "next/image";
 
-const columns = ["Serial Number", "Username", "Role", "Profile", "Action"];
+const columns = [
+  "Serial Number",
+  "Username",
+  "Image",
+  "FullName",
+  "Gender",
+  "Passed University",
+  "Passed Department",
 
-const ViewUsersComp = () => {
-  const router = useRouter();
+  "Blood group",
+
+  "Contact No.",
+  "Email",
+  "Nationality",
+  "Present Address",
+  "Permanent Address",
+  "Action",
+];
+
+const TeacherInfosList = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [data, setData] = React.useState("");
   const [errorMsg, setErrorMsg] = React.useState("");
-  const [modalShow, setModalShow] = React.useState(false);
-  const modalText = useSelector((state) => state.deleteModal);
-  const dispatch = useDispatch();
-  const [deleteItem, setDeleteItem] = React.useState("");
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -45,7 +54,7 @@ const ViewUsersComp = () => {
   const getUserList = async () => {
     const admin_token = getAdminToken();
     try {
-      const result = await Axios.get(`${baseUrl}/api/admin/list-users`, {
+      const result = await Axios.get(`${baseUrl}/api/admin/list-teachers`, {
         headers: {
           Authorization: "Bearer " + admin_token,
         },
@@ -58,11 +67,11 @@ const ViewUsersComp = () => {
 
   React.useEffect(() => {
     getUserList();
-    if (modalText) {
-      dispatch(deleteModalSlice.actions.deleteSuccessReducer(""));
-      getUserList();
-    }
-  }, [modalText]);
+  }, []);
+
+  if (!data) {
+    return <LoadingComp />;
+  }
 
   if (errorMsg) {
     return (
@@ -73,21 +82,11 @@ const ViewUsersComp = () => {
       </div>
     );
   }
-
-  if (!data) {
-    return <LoadingComp />;
-  }
-
   return (
     <div>
       <Container>
-        <AdminTitleComp
-          title="All Users"
-          btn_text="Add User"
-          url="/admin/users/adduser"
-        />
-
-        {/* users table */}
+        <AdminTitleComp title="Teacher Information's" />
+        {/* student info table */}
         <Paper sx={{ width: "100%", overflow: "hidden" }}>
           <TableContainer sx={{ maxHeight: 440 }}>
             <Table stickyHeader aria-label="sticky table">
@@ -116,49 +115,55 @@ const ViewUsersComp = () => {
                             {index + 1}
                           </TableCell>
                           <TableCell className="text-center">
-                            {row.username}
+                            {row.user?.username}
                           </TableCell>
-                          <TableCell>{row.role}</TableCell>
+                          <TableCell>
+                            <img
+                              src={row.profile_img}
+                              height={50}
+                              width={50}
+                              className="rounded-circle"
+                              style={{ objectFit: "cover" }}
+                            />
+                          </TableCell>
                           <TableCell className="text-center">
-                            {row.profile_status ? (
-                              <button className="commonBtn__style">
-                                Update Profile
-                              </button>
-                            ) : (
-                              <button
-                                onClick={() => {
-                                  if (row.role === "Student") {
-                                    router.push(
-                                      `/admin/users/viewusers/createstudentprofile/${row._id}`
-                                    );
-                                  }
-                                  if (row.role === "Teacher") {
-                                    router.push(
-                                      `/admin/teacherinfos/createteacherprofile/${row._id}`
-                                    );
-                                  }
-                                }}
-                                className="commonBtnTwo__style"
-                              >
-                                Create Profile
-                              </button>
-                            )}
+                            {row.fullName}
                           </TableCell>
+                          <TableCell className="text-center">
+                            {row.gender}
+                          </TableCell>
+                          <TableCell className="text-center">
+                            {row.passed_university}
+                          </TableCell>
+                          <TableCell className="text-center">
+                            {row.passed_department}
+                          </TableCell>
+
+                          <TableCell className="text-center">
+                            {row.blood_group}
+                          </TableCell>
+
+                          <TableCell className="text-center">
+                            {row.contact_no}
+                          </TableCell>
+                          <TableCell className="text-center">
+                            {row.email}
+                          </TableCell>
+
+                          <TableCell className="text-center">
+                            {row.nationality}
+                          </TableCell>
+
+                          <TableCell className="text-center">
+                            {row.present_address}
+                          </TableCell>
+                          <TableCell className="text-center">
+                            {row.parament_address}
+                          </TableCell>
+
                           <TableCell className="text-center">
                             <BiEditAlt className="commonEditIcon" />
-                            <MdDeleteOutline
-                              onClick={() => {
-                                setDeleteItem(row._id);
-                                setModalShow(true);
-                              }}
-                              className="commonDeleteIcon"
-                            />
-                            <DeleteModal
-                              show={modalShow}
-                              onHide={() => setModalShow(false)}
-                              userId={deleteItem}
-                              title="user"
-                            />
+                            <MdDeleteOutline className="commonDeleteIcon" />
                           </TableCell>
                         </TableRow>
                       );
@@ -181,4 +186,4 @@ const ViewUsersComp = () => {
   );
 };
 
-export default ViewUsersComp;
+export default TeacherInfosList;

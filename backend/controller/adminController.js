@@ -1,6 +1,7 @@
 const AdminModel = require("../model/AdminModel");
 const UserModel = require("../model/UserModel");
 const StudentProfileModel = require("../model/StudentProfileModel");
+const TeacherModel = require("../model/TeacherModel");
 var bcrypt = require("bcryptjs");
 const shortid = require("shortid");
 const jwt = require("jsonwebtoken");
@@ -142,6 +143,15 @@ module.exports.listStudentProfile__controller = async (req, res, next) => {
   }
 };
 
+module.exports.listTeachers__controller = async (req, res, next) => {
+  try {
+    const teachers = await TeacherModel.find().populate("user", "username");
+    return res.status(201).json(teachers);
+  } catch (error) {
+    return res.status(404).json({ error: "Something went wrong" });
+  }
+};
+
 module.exports.createStudentProfile__controller = async (req, res, next) => {
   try {
     const { studentId } = req.params;
@@ -234,6 +244,80 @@ module.exports.createStudentProfile__controller = async (req, res, next) => {
     return res
       .status(201)
       .json({ success: "Student profile created successfully" });
+  } catch (error) {
+    console.log(error);
+    return res.status(404).json({ error: "Something went wrong" });
+  }
+};
+
+module.exports.createTeacherProfile__controller = async (req, res, next) => {
+  try {
+    const { teacherId } = req.params;
+    const {
+      gender,
+      contact_no,
+      fullName,
+      nationality,
+      blood_group,
+      date_of_birth,
+      religion,
+      email,
+      passed_university,
+      passed_department,
+      present_address,
+      parament_address,
+    } = req.body;
+
+    if (
+      !fullName ||
+      !gender ||
+      !contact_no ||
+      !nationality ||
+      !passed_university ||
+      !passed_department ||
+      !email
+    ) {
+      return res
+        .status(404)
+        .json({ error: "Please provide required information" });
+    }
+
+    let img_path;
+    if (req.file) {
+      img_path = await cloudinary.uploader.upload(req.file.path, {
+        folder: "ucam/teacher_img",
+        quality: 40,
+      });
+    }
+
+    const newProfile = new TeacherModel({
+      gender,
+      contact_no,
+      fullName,
+      nationality,
+      blood_group,
+      date_of_birth,
+      religion,
+      email,
+      present_address,
+      parament_address,
+      passed_university,
+      passed_department,
+      profile_img: img_path?.secure_url || "",
+      image_id: img_path?.public_id || "",
+      user: teacherId,
+    });
+    const saveProfile = await newProfile.save();
+
+    const update_profileStatus = await UserModel.findOneAndUpdate(
+      { _id: teacherId },
+      { $set: { profile_status: true } },
+      { new: true }
+    );
+
+    return res
+      .status(201)
+      .json({ success: "Teacher profile created successfully" });
   } catch (error) {
     console.log(error);
     return res.status(404).json({ error: "Something went wrong" });

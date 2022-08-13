@@ -15,13 +15,18 @@ const adminRoutes = [
     url2: "/admin/admins/addadmin",
   },
   {
-    title: "User",
+    title: "Users",
     url: "/admin/users/viewusers",
     url2: "/admin/users/adduser",
   },
   {
     title: "Student Info",
     url: "/admin/studentinfos",
+    // url2: "/admin/users/adduser",
+  },
+  {
+    title: "Teacher Info",
+    url: "/admin/teacherinfos",
     // url2: "/admin/users/adduser",
   },
   {
