@@ -10,6 +10,10 @@ const {
   createTeacherProfile__controller,
   listTeachers__controller,
   totalCounts__controller,
+  createCourse__controller,
+  listCourses__controller,
+  courseDetails__controller,
+  deleteCourse__controller,
 } = require("../controller/adminController");
 
 const { checkAdmin } = require("../middleware/permission");
@@ -54,5 +58,15 @@ router.get(
 router.get("/list-teachers", checkAdmin, listTeachers__controller);
 
 router.delete("/delete-user/:userId", checkAdmin, deleteUser__controller);
+
+// Course
+
+router.post("/create-course", checkAdmin, createCourse__controller);
+
+router.post("/list-courses", checkAdmin, listCourses__controller);
+
+router.get("/course-details/:courseId", checkAdmin, courseDetails__controller);
+
+router.delete("/delete-course/:courseId", checkAdmin, deleteCourse__controller);
 
 module.exports = router;

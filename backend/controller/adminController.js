@@ -2,6 +2,7 @@ const AdminModel = require("../model/AdminModel");
 const UserModel = require("../model/UserModel");
 const StudentProfileModel = require("../model/StudentProfileModel");
 const TeacherModel = require("../model/TeacherModel");
+const CourseModel = require("../model/CourseModel");
 var bcrypt = require("bcryptjs");
 const shortid = require("shortid");
 const jwt = require("jsonwebtoken");
@@ -357,5 +358,79 @@ module.exports.totalCounts__controller = async (req, res, next) => {
     });
   } catch (error) {
     return res.status(500).json({ error: "Something went wrong" });
+  }
+};
+
+module.exports.createCourse__controller = async (req, res, next) => {
+  try {
+    const {
+      course_title,
+      credit,
+      course_code,
+      academic_session,
+      department,
+      course_students,
+      course_teachers,
+    } = req.body;
+    if (
+      !course_title ||
+      !credit ||
+      !course_code ||
+      !academic_session ||
+      !department
+    ) {
+      return res
+        .status(404)
+        .json({ error: "Please provide required information" });
+    }
+    const checkCourseCode = await CourseModel.findOne({ course_code });
+    if (checkCourseCode) {
+      return res.status(404).json({ error: "Course already exists" });
+    }
+    const newCourse = new CourseModel({
+      course_title,
+      credit,
+      course_code,
+      academic_session,
+      department,
+      course_students,
+      course_teachers,
+      createdAt: req.admin,
+    });
+    await newCourse.save();
+    return res.status(201).json({ error: "New course added successfully" });
+  } catch (error) {
+    return res.status(404).json({ error: "Something went wrong" });
+  }
+};
+
+module.exports.listCourses__controller = async (req, res, next) => {
+  try {
+    const courses = await CourseModel.find();
+    return res.status(200).json(courses);
+  } catch (error) {
+    return res.status(404).json({ error: "Something went wrong" });
+  }
+};
+
+module.exports.courseDetails__controller = async (req, res, next) => {
+  try {
+    const { courseId } = req.body;
+    const course_details = await CourseModel.findOne({ _id: courseId });
+    return res.status(200).json(course_details);
+  } catch (error) {
+    return res.status(404).json({ error: "Something went wrong" });
+  }
+};
+
+module.exports.deleteCourse__controller = async (req, res, next) => {
+  try {
+    const { courseId } = req.body;
+    const delete_course = await CourseModel.findOneAndDelete({
+      _id: courseId,
+    });
+    return res.status(201).json({ success: "Course deleted successfully" });
+  } catch (error) {
+    return res.status(404).json({ error: "Something went wrong" });
   }
 };

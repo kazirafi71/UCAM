@@ -14,7 +14,11 @@ const courseSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    session: {
+    academic_session: {
+      type: String,
+      required: true,
+    },
+    department: {
       type: String,
       required: true,
     },
@@ -31,6 +35,11 @@ const courseSchema = new mongoose.Schema(
         ref: "user",
       },
     ],
+
+    createdAt: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "admin",
+    },
   },
   { timestamps: true }
 );
