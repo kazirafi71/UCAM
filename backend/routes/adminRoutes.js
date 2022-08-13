@@ -9,6 +9,7 @@ const {
   deleteUser__controller,
   createTeacherProfile__controller,
   listTeachers__controller,
+  totalCounts__controller,
 } = require("../controller/adminController");
 
 const { checkAdmin } = require("../middleware/permission");
@@ -37,6 +38,8 @@ router.post(
   upload.single("teacher_img"),
   createTeacherProfile__controller
 );
+
+router.get("/total-counts", checkAdmin, totalCounts__controller);
 
 router.get("/list-users", checkAdmin, listUsers__controller);
 
