@@ -4,6 +4,7 @@ const initialState = {
   student_profile: "",
   errorMsg: "",
   isLoading: false,
+  student_courses: [],
 };
 
 export const studentSlice = createSlice({
@@ -12,6 +13,9 @@ export const studentSlice = createSlice({
   reducers: {
     studentProfileInfoReducer: (state, action) => {
       state.student_profile = action.payload;
+    },
+    studentCoursesReducer: (state, action) => {
+      state.student_courses = action.payload;
     },
     errorReducer: (state, action) => {
       state.errorMsg = action.payload;

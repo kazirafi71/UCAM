@@ -27,4 +27,23 @@ export const getStudentProfileInfoAction =
     }
   };
 
+export const getStudentCoursesAction =
+  (studentId, auth_token) => async (dispatch) => {
+    try {
+      dispatch(slice.loadingReducer(true));
+      const result = await Axios.get(
+        `${baseUrl}/api/student-courses/${studentId}`,
+        {
+          headers: {
+            Authorization: "Bearer " + auth_token,
+          },
+        }
+      );
 
+      dispatch(slice.loadingReducer(false));
+      dispatch(slice.studentCoursesReducer(result.data));
+    } catch (error) {
+      dispatch(slice.loadingReducer(false));
+      dispatch(slice.errorReducer(error.response?.data?.error));
+    }
+  };

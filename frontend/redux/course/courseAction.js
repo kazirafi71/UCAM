@@ -13,7 +13,7 @@ export const courseListAction = () => async (dispatch) => {
         Authorization: "Bearer " + admin_token,
       },
     });
- 
+
     dispatch(slice.listCoursesReducer(result.data));
   } catch (error) {
     console.log(error);
