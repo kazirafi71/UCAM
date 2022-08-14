@@ -28,6 +28,11 @@
   padding: 0px 10px;
 }
 
+.login__Style > li {
+  list-style-type: none;
+  padding: 10px 50px;
+}
+
 .activeNav__style > a {
   text-decoration: none;
   color: var(--primary--color);

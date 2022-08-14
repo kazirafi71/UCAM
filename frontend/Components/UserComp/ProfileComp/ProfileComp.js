@@ -1,10 +1,68 @@
-import React from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import React, { useEffect } from "react";
+import { Alert, Col, Container, Row } from "react-bootstrap";
 import CommonTitle from "../../CommonComp/CommonTitle/CommonTitle";
 import Styles from "./ProfileComp.module.css";
 import { Paper } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { getStudentProfileInfoAction } from "../../../redux/student/studentAction";
+import LoadingComp from "../../CommonComp/LoadingComp/LoadingComp";
+import getLocalStorageData, {
+  decodedToken,
+} from "../../../utils/localStorageData";
 
 const ProfileComp = () => {
+  const dispatch = useDispatch();
+  const { errorMsg, isLoading, student_profile } = useSelector(
+    (state) => state.student
+  );
+
+  useEffect(() => {
+    const token = decodedToken();
+    const auth_token = getLocalStorageData();
+    dispatch(getStudentProfileInfoAction(token?._id, auth_token));
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div>
+        <LoadingComp />
+      </div>
+    );
+  }
+  if (errorMsg) {
+    return (
+      <div>
+        <Alert className="text-center" variant="danger">
+          {errorMsg}
+        </Alert>
+      </div>
+    );
+  }
+
+  const {
+    blood_group,
+    contact_no,
+    date_of_birth,
+    email,
+    father_name,
+    father_profession,
+    fullName,
+    gender,
+    marital_status,
+    mother_name,
+    mother_profession,
+    nationality,
+    parament_address,
+    present_address,
+    profile_img,
+    religion,
+    roll_number,
+    second_guardian_address,
+    second_guardian_name,
+    session,
+    section,
+    sms_guardian_number,
+  } = student_profile;
   return (
     <div className={Styles.profileMain__style}>
       <Container className="py-3">
@@ -14,88 +72,96 @@ const ProfileComp = () => {
             <div className="">
               <img
                 className={Styles.profileImg__Style}
-                src={`https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8cGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=400&q=60`}
+                src={profile_img}
                 alt=""
               />
             </div>
             <Col md={6}>
               <div className="d-flex">
                 <p className={Styles.titleName__style}>Name </p>
-                <small>: Kazi Musaddi Rafi</small>
+                <small>: {fullName}</small>
               </div>
               <div className="d-flex">
                 <p className={Styles.titleName__style}>Gender </p>
-                <small>: Male</small>
+                <small>: {gender}</small>
+              </div>
+              <div className="d-flex">
+                <p className={Styles.titleName__style}>Roll </p>
+                <small>: {roll_number}</small>
+              </div>
+              <div className="d-flex">
+                <p className={Styles.titleName__style}>Session </p>
+                <small>: {session}</small>
+              </div>
+              <div className="d-flex">
+                <p className={Styles.titleName__style}>Section </p>
+                <small>: {section}</small>
+              </div>
+              <div className="d-flex">
+                <p className={Styles.titleName__style}>Nationality </p>
+                <small>: {nationality}</small>
               </div>
               <div className="d-flex">
                 <p className={Styles.titleName__style}>Blood Group </p>
-                <small>: B+</small>
+                <small>: {blood_group}</small>
               </div>
               <div className="d-flex">
                 <p className={Styles.titleName__style}>Contact No. </p>
-                <small>: +8801626627461</small>
+                <small>: {contact_no}</small>
               </div>
               <div className="d-flex">
                 <p className={Styles.titleName__style}>Father's Name </p>
-                <small>: Kazi Obaidul Haque</small>
+                <small>: {father_name}</small>
               </div>
               <div className="d-flex">
                 <p className={Styles.titleName__style}> Mother's Name</p>
-                <small>: Moni Akter</small>
+                <small>: {mother_name}</small>
               </div>
               <div className="d-flex">
                 <p className={Styles.titleName__style}>SMS Contact Self </p>
-                <small>: +8801682401675</small>
-              </div>
-              <div className="d-flex">
-                <p className={Styles.titleName__style}>SMS Contact Gaurdian </p>
-                <small>: +8801682401675</small>
-              </div>
-              <div className="d-flex">
-                <p className={Styles.titleName__style}>Date of Birth </p>
-                <small>: 15/06/2000</small>
-              </div>
-              <div className="d-flex">
-                <p className={Styles.titleName__style}>Matrial Status </p>
-                <small>: Single</small>
+                <small>: {contact_no}</small>
               </div>
             </Col>
             <Col md={6}>
               <div className="d-flex">
-                <p className={Styles.titleName__style}>Religion </p>
-                <small>: Islam</small>
+                <p className={Styles.titleName__style}>Email :</p>
+                <small>: {email}</small>
               </div>
               <div className="d-flex">
-                <p className={Styles.titleName__style}>Email :</p>
-                <small>: kazirafi668@gmail.com</small>
+                <p className={Styles.titleName__style}>SMS Contact Gaurdian </p>
+                <small>: {sms_guardian_number}</small>
+              </div>
+              <div className="d-flex">
+                <p className={Styles.titleName__style}>Date of Birth </p>
+                <small>: {date_of_birth}</small>
+              </div>
+              <div className="d-flex">
+                <p className={Styles.titleName__style}>Matrial Status </p>
+                <small>: {marital_status}</small>
               </div>
               <div className="d-flex">
                 <p className={Styles.titleName__style}>Guardian's Name </p>
-                <small>: SALIM REZA</small>
+                <small>: {second_guardian_name}</small>
               </div>
               <div className="d-flex">
                 <p className={Styles.titleName__style}> Father's Profession</p>
-                <small>: Teacher</small>
+                <small>: {father_profession}</small>
               </div>
               <div className="d-flex">
                 <p className={Styles.titleName__style}>Mother's Profession</p>
-                <small>: House Wife</small>
+                <small>: {mother_profession}</small>
               </div>
               <div className="d-flex">
                 <p className={Styles.titleName__style}>Present Address </p>
-                <small>: MIRER BETKA, TANGAIL SADAR, TANGAIL</small>
+                <small>: {present_address}</small>
               </div>
               <div className="d-flex">
                 <p className={Styles.titleName__style}>Permanent Address </p>
-                <small>: MIRER BETKA, TANGAIL SADAR, TANGAIL </small>
+                <small>: {parament_address} </small>
               </div>
               <div className="d-flex">
                 <p className={Styles.titleName__style}>Guardian Address </p>
-                <small>: Pichuria, TANGAIL SADAR, TANGAIL</small>
-              </div>
-              <div className="d-flex">
-                <p className={Styles.titleName__style}>Mailing Address </p>
-                <small>: kazirafi668@gmail.com</small>
+                <small>: {second_guardian_address}</small>
               </div>
             </Col>{" "}
           </Row>

@@ -1,5 +1,7 @@
 .titleName__style {
-  width: 180px;
+  width: 130px;
+  font-weight: bold;
+  color: var(--secondary--color);
 }
 
 .profileImg__Style {
