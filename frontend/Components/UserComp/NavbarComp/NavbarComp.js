@@ -8,6 +8,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import getLocalStorageData from "../../../utils/localStorageData";
 import { clearStudentInfoReducer } from "../../../redux/student/studentSlice";
+import jwt_decode from "jwt-decode";
 
 const NavbarComp = () => {
   const router = useRouter();
@@ -15,14 +16,22 @@ const NavbarComp = () => {
   const { errorMsg, isLoading, student_profile } = useSelector(
     (state) => state.student
   );
+  const { teacher_profile } = useSelector((state) => state.teacher);
   const [auth_token, setAuthToken] = useState("");
+  const [tokenInfo, setTokenInfo] = useState("");
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       let token = localStorage.getItem("auth_token");
       setAuthToken(token);
+      if (token) {
+        var decoded = jwt_decode(token);
+        setTokenInfo(decoded);
+      }
     }
   }, []);
+
+  // console.log(teacher_profile);
 
   return (
     <div className={Styles.mainNav__style}>
@@ -60,18 +69,33 @@ const NavbarComp = () => {
                 <a>Profile</a>
               </Link>
             </li>
-            <li
-              className={
-                router.pathname == "/coursehistory"
-                  ? `${Styles.activeNav__style}`
-                  : `${Styles.normalNav__style}`
-              }
-            >
-              {" "}
-              <Link href="/coursehistory">
-                <a>Course</a>
-              </Link>
-            </li>
+            {tokenInfo && tokenInfo?.role === "Teacher" ? (
+              <li
+                className={
+                  router.pathname == "/coursehistory"
+                    ? `${Styles.activeNav__style}`
+                    : `${Styles.normalNav__style}`
+                }
+              >
+                {" "}
+                <Link href="/teachercourses">
+                  <a>Course</a>
+                </Link>
+              </li>
+            ) : (
+              <li
+                className={
+                  router.pathname == "/coursehistory"
+                    ? `${Styles.activeNav__style}`
+                    : `${Styles.normalNav__style}`
+                }
+              >
+                {" "}
+                <Link href="/coursehistory">
+                  <a>Course</a>
+                </Link>
+              </li>
+            )}
 
             <li
               className={
@@ -122,8 +146,10 @@ const NavbarComp = () => {
         <>
           <div className={Styles.rightNav__style}>
             <div className="me-2">
-              <b>{student_profile?.fullName}</b> <br />
-              <small>{student_profile?.roll_number}</small> /
+              <b>{student_profile?.fullName || teacher_profile?.fullName}</b>{" "}
+              <br />
+              <small>{student_profile?.roll_number}</small>{" "}
+              {student_profile && "/"}
               <small
                 style={{ cursor: "pointer" }}
                 onClick={() => {
@@ -136,7 +162,13 @@ const NavbarComp = () => {
                 Logout
               </small>
             </div>
-            <Avatar src={student_profile?.profile_img || ""} />
+            <Avatar
+              src={
+                student_profile?.profile_img ||
+                teacher_profile?.profile_img ||
+                ""
+              }
+            />
           </div>
         </>
       ) : (

@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { Container } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import AdminTitleComp from "../../../CommonComp/AdminTitleComp/AdminTitleComp";
 import baseUrl from "../../../../config/baseUrl";
 import { getAdminToken } from "../../../../utils/localStorageData";
@@ -58,6 +58,7 @@ const AddUserComp = () => {
       toast.success(result.data.success);
       router.push("/admin/users/viewusers");
     } catch (error) {
+      console.log(error.response.data.error);
       toast.error(error.response.data.error);
     }
   };
@@ -69,7 +70,6 @@ const AddUserComp = () => {
 
   return (
     <Container>
-      <Toaster />
       <AdminTitleComp title="Add User" />
       <Paper className="p-3 py-4 mt-4">
         <Form onSubmit={formik.handleSubmit}>

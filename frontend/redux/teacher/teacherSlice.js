@@ -2,6 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   teacher_courses: [],
+  teacher_profile: "",
+  errorMsg: "",
+  isLoading: false,
 };
 
 export const teacherSlice = createSlice({
@@ -10,6 +13,15 @@ export const teacherSlice = createSlice({
   reducers: {
     listTeacherCoursesReducer: (state, action) => {
       state.teacher_courses = action.payload;
+    },
+    teacherProfileReducer: (state, action) => {
+      state.teacher_profile = action.payload;
+    },
+    errorMsgReducer: (state, action) => {
+      state.errorMsg = action.payload;
+    },
+    LoadingReducer: (state, action) => {
+      state.isLoading = action.payload;
     },
   },
 });

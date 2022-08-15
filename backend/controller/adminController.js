@@ -235,10 +235,11 @@ module.exports.createStudentProfile__controller = async (req, res, next) => {
       user: studentId,
     });
     const saveProfile = await newProfile.save();
+    console.log(saveProfile);
 
     const update_profileStatus = await UserModel.findOneAndUpdate(
       { _id: studentId },
-      { $set: { profile_status: true } },
+      { $set: { profile_status: true, student: saveProfile._id } },
       { new: true }
     );
 

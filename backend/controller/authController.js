@@ -25,7 +25,11 @@ module.exports.login__controller = async (req, res, next) => {
     }
 
     var token = jwt.sign(
-      { _id: checkUser._id, username: checkUser.username },
+      {
+        _id: checkUser._id,
+        username: checkUser.username,
+        role: checkUser.role,
+      },
       process.env.SECRET_KEY,
       {
         expiresIn: "1h",

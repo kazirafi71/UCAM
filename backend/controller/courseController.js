@@ -12,3 +12,16 @@ module.exports.getOneStudentCourses__controller = async (req, res, next) => {
     console.log(error);
   }
 };
+
+module.exports.getTeacherCourses__controller = async (req, res, next) => {
+  try {
+    const { teacherId } = req.params;
+    const teacherCourses = await CourseModel.find({
+      course_teachers: { $in: [teacherId] },
+    });
+
+    return res.status(200).json(teacherCourses);
+  } catch (error) {
+    console.log(error);
+  }
+};

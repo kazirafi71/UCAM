@@ -19,6 +19,7 @@ app.use("/api", require("./routes/authRoutes"));
 app.use("/api", require("./routes/studentRoutes"));
 app.use("/api", require("./routes/courseRoutes"));
 app.use("/api", require("./routes/attendanceRoutes"));
+app.use("/api", require("./routes/teacherRoutes"));
 
 //server and database
 const PORT = process.env.PORT || 5000;

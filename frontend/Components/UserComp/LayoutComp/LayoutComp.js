@@ -7,6 +7,7 @@ import getLocalStorageData from "../../../utils/localStorageData";
 import LoadingComp from "../../CommonComp/LoadingComp/LoadingComp";
 import NavbarComp from "../NavbarComp/NavbarComp";
 import jwt_decode from "jwt-decode";
+import { getTeacherProfileAction } from "../../../redux/teacher/teacherAction";
 
 const LayoutComp = ({ children }) => {
   const router = useRouter();
@@ -21,7 +22,12 @@ const LayoutComp = ({ children }) => {
       router.push("/login");
     } else if (user_token) {
       decoded = jwt_decode(user_token);
-      dispatch(getStudentProfileInfoAction(decoded?._id, user_token));
+      if (decoded.role === "Student") {
+        dispatch(getStudentProfileInfoAction(decoded?._id, user_token));
+      }
+      if (decoded.role === "Teacher") {
+        dispatch(getTeacherProfileAction(decoded?._id, user_token));
+      }
     }
   }, [checkToken, user_token, decoded]);
 

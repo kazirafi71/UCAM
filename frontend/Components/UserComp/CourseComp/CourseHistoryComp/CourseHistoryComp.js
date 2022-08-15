@@ -17,6 +17,7 @@ const CourseHistoryComp = () => {
     const auth_token = getLocalStorageData();
     dispatch(getStudentCoursesAction(studentId?._id, auth_token));
   }, []);
+  console.log(student_courses);
   return (
     <div>
       <Container className="py-3">
