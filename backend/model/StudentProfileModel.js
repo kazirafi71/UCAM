@@ -94,4 +94,4 @@ const studentProfileSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("student_profile", studentProfileSchema);
+module.exports = mongoose.model("student", studentProfileSchema);

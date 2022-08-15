@@ -29,7 +29,6 @@ export const teacherListAction = () => async (dispatch) => {
         Authorization: "Bearer " + admin_token,
       },
     });
-    
 
     dispatch(slice.getTeacherListReducer(result.data));
   } catch (error) {

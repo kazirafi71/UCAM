@@ -13,7 +13,7 @@ module.exports.login__controller = async (req, res, next) => {
     }
 
     const checkUser = await UserModel.findOne({
-      username: username.toLowerCase().replaceAll(" ", ""),
+      username: username,
     });
 
     if (!checkUser) {

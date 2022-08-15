@@ -16,6 +16,9 @@ app.get("/test", (req, res) => {
 
 app.use("/api/admin", require("./routes/adminRoutes"));
 app.use("/api", require("./routes/authRoutes"));
+app.use("/api", require("./routes/studentRoutes"));
+app.use("/api", require("./routes/courseRoutes"));
+app.use("/api", require("./routes/attendanceRoutes"));
 
 //server and database
 const PORT = process.env.PORT || 5000;

@@ -26,13 +26,13 @@ const courseSchema = new mongoose.Schema(
     course_students: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "user",
+        ref: "student",
       },
     ],
     course_teachers: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "user",
+        ref: "teacher",
       },
     ],
 

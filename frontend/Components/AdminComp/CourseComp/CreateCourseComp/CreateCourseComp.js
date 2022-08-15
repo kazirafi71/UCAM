@@ -78,7 +78,6 @@ const CreateCourseComp = () => {
     return errors;
   };
   const onSubmit = (values) => {
-    
     const {
       course_title,
       credit,
@@ -124,7 +123,7 @@ const CreateCourseComp = () => {
     onSubmit,
   });
 
-  console.log(formik);
+
 
   useEffect(() => {
     dispatch(studentListAction());
@@ -132,11 +131,11 @@ const CreateCourseComp = () => {
   }, []);
 
   useEffect(() => {
-    // console.log(studentList);
+    console.log(studentList);
     if (studentList) {
       const studentOptions = studentList.map((item) => {
         return {
-          value: item.user?._id,
+          value: item?._id,
           label: `${item.fullName} (${item.roll_number}) (${item.section})`,
         };
       });
@@ -146,7 +145,7 @@ const CreateCourseComp = () => {
     if (teacherList) {
       const teacherOptions = teacherList.map((item) => {
         return {
-          value: item.user?._id,
+          value: item?._id,
           label: `${item.fullName} (${item.passed_department}) `,
         };
       });
