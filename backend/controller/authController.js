@@ -30,10 +30,10 @@ module.exports.login__controller = async (req, res, next) => {
         username: checkUser.username,
         role: checkUser.role,
       },
-      process.env.SECRET_KEY,
-      {
-        expiresIn: "1h",
-      }
+      process.env.SECRET_KEY
+      // {
+      //   expiresIn: "1h",
+      // }
     );
     return res.status(201).json({ success: "Login successful", token });
   } catch (error) {

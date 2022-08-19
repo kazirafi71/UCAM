@@ -25,7 +25,7 @@ const attendanceSchema = mongoose.Schema(
     // },
     student: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "user",
+      ref: "student",
     },
   },
   { timestamps: true }

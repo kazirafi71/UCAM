@@ -7,17 +7,22 @@ import getLocalStorageData, {
   decodedToken,
 } from "../../../../utils/localStorageData";
 import CommonTitle from "../../../CommonComp/CommonTitle/CommonTitle";
+import LoadingComp from "../../../CommonComp/LoadingComp/LoadingComp";
 
 const CourseHistoryComp = () => {
   const dispatch = useDispatch();
-  const { student_courses } = useSelector((state) => state.student);
+  const { student_courses, student_profile, isLoading } = useSelector(
+    (state) => state.student
+  );
 
   useEffect(() => {
-    const studentId = decodedToken();
     const auth_token = getLocalStorageData();
-    dispatch(getStudentCoursesAction(studentId?._id, auth_token));
-  }, []);
-  console.log(student_courses);
+    dispatch(getStudentCoursesAction(student_profile?._id, auth_token));
+  }, [student_profile]);
+
+  if (isLoading) {
+    <LoadingComp />;
+  }
   return (
     <div>
       <Container className="py-3">

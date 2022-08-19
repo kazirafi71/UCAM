@@ -1,15 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  courseStudents: [],
+  attendanceSheet: [],
 };
 
 export const attendanceSlice = createSlice({
   name: "attendance",
   initialState,
   reducers: {
-    listCourseStudents: (state, action) => {
-      state.courseStudents = action.payload;
+    listAttendanceSheetReducer: (state, action) => {
+      state.attendanceSheet = action.payload;
     },
   },
 });

@@ -70,45 +70,60 @@ const NavbarComp = () => {
               </Link>
             </li>
             {tokenInfo && tokenInfo?.role === "Teacher" ? (
-              <li
-                className={
-                  router.pathname == "/coursehistory"
-                    ? `${Styles.activeNav__style}`
-                    : `${Styles.normalNav__style}`
-                }
-              >
-                {" "}
-                <Link href="/teachercourses">
-                  <a>Course</a>
-                </Link>
-              </li>
+              <>
+                <li
+                  className={
+                    router.pathname == "/coursehistory"
+                      ? `${Styles.activeNav__style}`
+                      : `${Styles.normalNav__style}`
+                  }
+                >
+                  {" "}
+                  <Link href="/teachercourses">
+                    <a>Course</a>
+                  </Link>
+                </li>
+                <li
+                  className={
+                    router.pathname == "/attendance/takeattendance"
+                      ? `${Styles.activeNav__style}`
+                      : `${Styles.normalNav__style}`
+                  }
+                >
+                  {" "}
+                  <Link href="/attendance/takeattendance">
+                    <a>Attendance</a>
+                  </Link>
+                </li>
+              </>
             ) : (
-              <li
-                className={
-                  router.pathname == "/coursehistory"
-                    ? `${Styles.activeNav__style}`
-                    : `${Styles.normalNav__style}`
-                }
-              >
-                {" "}
-                <Link href="/coursehistory">
-                  <a>Course</a>
-                </Link>
-              </li>
+              <>
+                <li
+                  className={
+                    router.pathname == "/coursehistory"
+                      ? `${Styles.activeNav__style}`
+                      : `${Styles.normalNav__style}`
+                  }
+                >
+                  {" "}
+                  <Link href="/coursehistory">
+                    <a>Course</a>
+                  </Link>
+                </li>
+                <li
+                  className={
+                    router.pathname == "/attendance/attendancesummary"
+                      ? `${Styles.activeNav__style}`
+                      : `${Styles.normalNav__style}`
+                  }
+                >
+                  {" "}
+                  <Link href="/attendance/attendancesummary">
+                    <a>Attendance</a>
+                  </Link>
+                </li>
+              </>
             )}
-
-            <li
-              className={
-                router.pathname == "/attendance/attendancesummary"
-                  ? `${Styles.activeNav__style}`
-                  : `${Styles.normalNav__style}`
-              }
-            >
-              {" "}
-              <Link href="/attendance/attendancesummary">
-                <a>Attendance</a>
-              </Link>
-            </li>
 
             <li
               className={

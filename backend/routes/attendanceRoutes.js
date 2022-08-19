@@ -1,8 +1,10 @@
 const {
   takeAttendance__controller,
   getAttendanceList__controller,
+  getTodayAttendanceList__controller,
+  listAttendanceSummary__controller,
 } = require("../controller/attendanceController");
-const { checkTeacher } = require("../middleware/permission");
+const { checkTeacher, checkLogin } = require("../middleware/permission");
 
 const router = require("express").Router();
 
@@ -13,9 +15,21 @@ router.put(
 );
 
 router.get(
-  "/get-attendance-list/:courseId",
+  "/get-attendance-list/:courseId/teacher/:teacherId",
   checkTeacher,
   getAttendanceList__controller
+);
+
+router.get(
+  "/get-today-attendance-list/:courseId",
+  checkTeacher,
+  getTodayAttendanceList__controller
+);
+
+router.get(
+  "/list-attendance-summary/:studentId",
+  checkLogin,
+  listAttendanceSummary__controller
 );
 
 module.exports = router;

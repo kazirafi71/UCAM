@@ -3,9 +3,11 @@ import TakeAttendanceComp from "../../../Components/TeacherComps/AttendenceComp/
 import LayoutComp from "../../../Components/UserComp/LayoutComp/LayoutComp";
 
 const TakeAttendance = () => {
-  return <LayoutComp>
-    <TakeAttendanceComp/>
-  </LayoutComp>;
+  return (
+    <LayoutComp>
+      <TakeAttendanceComp />
+    </LayoutComp>
+  );
 };
 
 export default TakeAttendance;
