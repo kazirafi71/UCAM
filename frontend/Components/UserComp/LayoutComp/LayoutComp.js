@@ -22,6 +22,7 @@ const LayoutComp = ({ children }) => {
       router.push("/login");
     } else if (user_token) {
       decoded = jwt_decode(user_token);
+
       if (decoded.role === "Student") {
         dispatch(getStudentProfileInfoAction(decoded?._id, user_token));
       }

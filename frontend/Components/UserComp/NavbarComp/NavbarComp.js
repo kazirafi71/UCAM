@@ -58,22 +58,23 @@ const NavbarComp = () => {
                 <a>Home</a>
               </Link>
             </li>
-            <li
-              className={
-                router.pathname == "/profile"
-                  ? `${Styles.activeNav__style}`
-                  : `${Styles.normalNav__style}`
-              }
-            >
-              <Link href="/profile">
-                <a>Profile</a>
-              </Link>
-            </li>
+
             {tokenInfo && tokenInfo?.role === "Teacher" ? (
               <>
                 <li
                   className={
-                    router.pathname == "/coursehistory"
+                    router.pathname == "/teacher/teacherprofile"
+                      ? `${Styles.activeNav__style}`
+                      : `${Styles.normalNav__style}`
+                  }
+                >
+                  <Link href="/teacher/teacherprofile">
+                    <a>Profile</a>
+                  </Link>
+                </li>
+                <li
+                  className={
+                    router.pathname == "/teachercourses"
                       ? `${Styles.activeNav__style}`
                       : `${Styles.normalNav__style}`
                   }
@@ -98,6 +99,17 @@ const NavbarComp = () => {
               </>
             ) : (
               <>
+                <li
+                  className={
+                    router.pathname == "/profile"
+                      ? `${Styles.activeNav__style}`
+                      : `${Styles.normalNav__style}`
+                  }
+                >
+                  <Link href="/profile">
+                    <a>Profile</a>
+                  </Link>
+                </li>
                 <li
                   className={
                     router.pathname == "/coursehistory"
