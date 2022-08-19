@@ -19,6 +19,14 @@ const attendanceSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "course",
     },
+    total_present: {
+      type: Number,
+      default: 0,
+    },
+    total_absent: {
+      type: Number,
+      default: 0,
+    },
     // createdAt: {
     //   type: mongoose.Schema.Types.ObjectId,
     //   ref: "teacher",

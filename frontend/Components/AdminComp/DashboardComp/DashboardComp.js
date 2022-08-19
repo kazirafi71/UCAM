@@ -6,6 +6,7 @@ import baseUrl from "../../../config/baseUrl";
 import { getAdminToken } from "../../../utils/localStorageData";
 import { FaUserFriends, FaUserGraduate, FaUserTie } from "react-icons/fa";
 import { RiAdminFill } from "react-icons/ri";
+import { BsBook } from "react-icons/bs";
 import { useRouter } from "next/router";
 
 const DashboardComp = () => {
@@ -24,8 +25,13 @@ const DashboardComp = () => {
       });
   }, []);
 
-  const { total_users, total_teachers, total_admins, total_students } =
-    totalNumber;
+  const {
+    total_users,
+    total_teachers,
+    total_admins,
+    total_students,
+    total_courses,
+  } = totalNumber;
   return (
     <div>
       <Container>
@@ -84,6 +90,20 @@ const DashboardComp = () => {
                   <RiAdminFill style={{ marginRight: 5 }} /> Admins
                 </h3>
                 <h2>{total_admins}</h2>
+              </div>
+            </Paper>
+          </Col>
+          <Col className="py-3" md={4}>
+            <Paper
+              onClick={() => router.push("/admin/course")}
+              style={{ cursor: "pointer" }}
+              className="shadow"
+            >
+              <div className="text-center py-3">
+                <h3 className="pb-2" style={{ color: "rgb(255, 166, 0)" }}>
+                  <BsBook style={{ marginRight: 5 }} /> Courses
+                </h3>
+                <h2>{total_courses}</h2>
               </div>
             </Paper>
           </Col>

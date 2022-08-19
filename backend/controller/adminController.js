@@ -351,11 +351,13 @@ module.exports.totalCounts__controller = async (req, res, next) => {
     const total_students = await UserModel.find({ role: "Student" }).count();
     const total_teachers = await UserModel.find({ role: "Teacher" }).count();
     const total_admins = await AdminModel.find({ role: "Admin" }).count();
+    const total_courses = await CourseModel.find({ role: "Admin" }).count();
     return res.status(200).json({
       total_users,
       total_teachers,
       total_students,
       total_admins,
+      total_courses,
     });
   } catch (error) {
     return res.status(500).json({ error: "Something went wrong" });

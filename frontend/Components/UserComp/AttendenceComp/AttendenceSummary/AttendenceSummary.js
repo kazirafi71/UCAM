@@ -1,10 +1,31 @@
 import { Paper } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Table } from "react-bootstrap";
 import CommonTitle from "../../../CommonComp/CommonTitle/CommonTitle";
 import Styles from "./AttendenceSummary.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { getAttendanceSummaryAction } from "../../../../redux/attendence/attendanceAction";
+import getLocalStorageData from "../../../../utils/localStorageData";
+import LoadingComp from "../../../CommonComp/LoadingComp/LoadingComp";
 
 const AttendenceSummary = () => {
+  const dispatch = useDispatch();
+  const { attendanceSummary } = useSelector((state) => state.attendance);
+  const { isLoading, student_profile } = useSelector((state) => state.student);
+  const [detailsInfo, setDetailsInfo] = useState("");
+  const [detailsCourse, setDetailsCourse] = useState("");
+
+  useEffect(() => {
+    if (student_profile) {
+      const auth_token = getLocalStorageData();
+      dispatch(getAttendanceSummaryAction(student_profile?._id, auth_token));
+    }
+  }, [student_profile]);
+
+  if (isLoading) {
+    return <LoadingComp />;
+  }
+
   return (
     <div className={Styles.mainDiv__style}>
       <Container className="py-3">
@@ -20,83 +41,73 @@ const AttendenceSummary = () => {
                   <th>SL</th>
                   <th>Course Code </th>
                   <th>Course Title</th>
-                  <th>Section </th>
-
                   <th>Present Count </th>
                   <th>Absent Count </th>
                   <th>Action </th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>ICE4223</td>
-                  <td>Cloud Computing</td>
-                  <td>B</td>
-                  <td>5</td>
-                  <td>2</td>
+                {attendanceSummary &&
+                  attendanceSummary?.map((item, index) => {
+                    return (
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td>{item.course?.course_code}</td>
+                        <td>{item.course?.course_title}</td>
+                        <td>{item.total_present}</td>
+                        <td>{item.total_absent}</td>
 
-                  <td>
-                    <button className={Styles.detailsBtn_style}>Details</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>ICE4223</td>
-                  <td>Cloud Computing</td>
-                  <td>B</td>
-                  <td>5</td>
-                  <td>2</td>
-
-                  <td>
-                    <button className={Styles.detailsBtn_style}>Details</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>ICE4223</td>
-                  <td>Cloud Computing</td>
-                  <td>B</td>
-                  <td>5</td>
-                  <td>2</td>
-
-                  <td>
-                    <button className={Styles.detailsBtn_style}>Details</button>
-                  </td>
-                </tr>
+                        <td>
+                          <button
+                            onClick={() => {
+                              setDetailsInfo(item?.attendance);
+                              setDetailsCourse(item.course?.course_title);
+                            }}
+                            className={Styles.detailsBtn_style}
+                          >
+                            Details
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
               </tbody>
             </Table>
           </Paper>
         </div>
         {/* Class Attendance Details */}
-        <div className=" pt-4">
-          <h6 className={Styles.sessionInfo__style}>
-            Class Attendance Details for :: ICE4207 : Cryptography
-          </h6>
-          <Paper className="text-center">
-            <Table striped bordered hover responsive>
-              <thead>
-                <tr>
-                  <th>SL</th>
-                  <th>Attendance Date </th>
-                  <th>Attendance Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>17/07/2022</td>
-                  <td>Present</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>20/07/2022</td>
-                  <td>Present</td>
-                </tr>
-              </tbody>
-            </Table>
-          </Paper>
-        </div>
+        {detailsInfo && (
+          <div className=" pt-4">
+            <h6 className={Styles.sessionInfo__style}>
+              Class Attendance Details for :: ICE4207 : {detailsCourse}
+            </h6>
+            <Paper className="text-center">
+              <Table striped bordered hover responsive>
+                <thead>
+                  <tr>
+                    <th>SL</th>
+                    <th>Attendance Date </th>
+                    <th>Attendance Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {detailsInfo &&
+                    detailsInfo?.map((item, index) => {
+                      return (
+                        <tr>
+                          <td>{index + 1}</td>
+                          <td>{item.attendance_date}</td>
+                          <td>
+                            {item.attendance_status ? "Present" : "Absent"}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                </tbody>
+              </Table>
+            </Paper>
+          </div>
+        )}
       </Container>
     </div>
   );

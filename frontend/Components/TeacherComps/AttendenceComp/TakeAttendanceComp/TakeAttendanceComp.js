@@ -47,13 +47,14 @@ const TakeAttendanceComp = () => {
   const presentHandler = (status, id) => {
     setAttendanceStatus(status);
     setStudentId(id);
+    presentSaveHandler(id, status);
   };
 
   const saveAttendanceHandler = () => {
     toast.success("Attendance saved successfully");
   };
 
-  const presentSaveHandler = () => {
+  const presentSaveHandler = (studentId, attendanceStatus) => {
     let today = new Date().toLocaleDateString();
     let bodyData = {
       studentId: studentId,
@@ -61,30 +62,24 @@ const TakeAttendanceComp = () => {
       attendance_date: today,
     };
 
-    if (attendanceStatus) {
-      Axios.put(
-        `${baseUrl}/api/create-attendance/${selectedCourse}`,
-        bodyData,
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        }
-      )
-        .then((result) => {
-          console.log(result.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+    Axios.put(`${baseUrl}/api/create-attendance/${selectedCourse}`, bodyData, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((result) => {
+        console.log(result.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
-  useEffect(() => {
-    if (attendanceStatus) {
-      presentSaveHandler();
-    }
-  }, [attendanceStatus]);
+  // useEffect(() => {
+  //   if (attendanceStatus) {
+  //     presentSaveHandler();
+  //   }
+  // }, [attendanceStatus]);
 
   if (isLoading) {
     return <LoadingComp />;
@@ -92,8 +87,6 @@ const TakeAttendanceComp = () => {
   if (errorMsg) {
     return <Alert className="alert-danger text-center">{errorMsg}</Alert>;
   }
-
-  console.log(attendanceStatus);
 
   return (
     <div>

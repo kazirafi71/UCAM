@@ -19,3 +19,20 @@ export const getListAttendanceSheetAction =
       console.log(error);
     }
   };
+
+export const getAttendanceSummaryAction =
+  (studentId, user_token) => async (dispatch) => {
+    try {
+      const result = await Axios.get(
+        `${baseUrl}/api/list-attendance-summary/${studentId}`,
+        {
+          headers: {
+            Authorization: "Bearer " + user_token,
+          },
+        }
+      );
+      dispatch(slice.attendanceSummaryReducer(result.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
