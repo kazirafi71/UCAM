@@ -29,6 +29,11 @@ export const adminRoutes = [
     url2: "/admin/course/createcourse",
   },
   {
+    title: "Billing Info",
+    url: "/admin/bill/billinfo",
+    url2: "/admin/bill/createbill",
+  },
+  {
     title: "Settings",
     url: "/admin/settings",
   },
